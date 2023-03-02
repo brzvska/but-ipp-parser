@@ -115,7 +115,8 @@ function checkSymb($splitted_file, int $i){
         }
     }   
     //<const>       
-    elseif(((preg_match("/^int@[+|-]?\d+/", $splitted_file[$i])))){
+    elseif(((preg_match("/^int@[+|-]?\d+$/", $splitted_file[$i])))){
+        //TODO HEXADECIMAL
         $string = $splitted_file[$i];
         $string_name = substr($string, strpos($string, "@") + 1); 
         echo("\t\t<arg".$i." type=\"int\">".$string_name."</arg".$i.">\n");
@@ -213,15 +214,13 @@ while(true){
     }
 
     $file = lessSpaces($file);
-    $split_comment = explode('#', trim($file, "\n")); //odriznem si comentare
+    $split_comment = explode('#', trim($file, "\n")); // skips comments.
     $splitted_file = explode(' ', trim($split_comment[0], " "));
 
     $without_whitespaces =  trim($file, " ");
-    //$splitted_file = explode(' ', lessSpaces($file));   // exploded line into words. to access them use index ($splitted_file[i]).
 
     //---------------------------------------------- header processing.
     if(!$is_header){
-
         if(preg_match("/^\.IPPcode23(?:\s*#.+)?$/", $without_whitespaces)){
             $is_header = true;
             echo("<program language=\"IPPcode23\">"."\n");
@@ -418,6 +417,10 @@ while(true){
     }
 }
 
+if(!$is_header){
+    print_error("Error! Wrong or missing file header!" . "\n" );
+    exit(missing_or_bad_header);     // Error 21.
+}
 echo("</program>\n");
 exit(success);
 
