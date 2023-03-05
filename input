@@ -1,1 +1,3 @@
     .IPPcode23
+    MOVE GF@b   int@-3
+    MOVE LF@iiu int@0xf
