@@ -115,8 +115,7 @@ function checkSymb($splitted_file, int $i){
         }
     }   
     //<const>       
-    elseif(((preg_match("/^int@[+|-]?\d+$/", $splitted_file[$i])))){
-        //TODO HEXADECIMAL
+    elseif(((preg_match("/^int@[+|-]?(0x)?[0-9a-fA-F]+$/", $splitted_file[$i])))){
         $string = $splitted_file[$i];
         $string_name = substr($string, strpos($string, "@") + 1); 
         echo("\t\t<arg".$i." type=\"int\">".$string_name."</arg".$i.">\n");
@@ -149,7 +148,6 @@ function checkSymb($splitted_file, int $i){
             $string = $splitted_file[$i];
             $string_name = substr($string, strpos($string, "@") + 1); 
         if(preg_match("/^(?:\\\\[0-9]{3}|[^\\\\])*$/", $string_name)){
-                // echo("\t\t<arg".$i." type=\"string\">".$string_name."</arg".$i.">\n");
                if(!replaceSymbols($string_name, $i)){
                     print_error("Error! Wrong or unexpected instruction parameters!\n");
                     exit(lexical_or_syntax_error);  // Error 23. 
