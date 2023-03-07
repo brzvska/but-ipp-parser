@@ -34,7 +34,7 @@ function replaceSymbols($substring, $i){
         }
     }
 
-    echo("\t\t<arg".$i." type=\"string\">".$new_string."</arg".$i.">\n");
+    echo("\t\t<arg".$i." type=\"string\">".$substring."</arg".$i.">\n");
     return true;
 }
 
